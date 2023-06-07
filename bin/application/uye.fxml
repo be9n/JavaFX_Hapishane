@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="uye_form" prefHeight="560.0" prefWidth="380.0" style="-fx-background-color: RGB(60, 63, 81);" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UyeController">
+   <children>
+      <ImageView fitHeight="118.0" fitWidth="133.0" layoutX="131.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logo.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txt_kul_adi" layoutX="36.0" layoutY="268.0" prefHeight="35.0" prefWidth="309.0" promptText="Kullanıcı adı">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txt_sifre" layoutX="36.0" layoutY="333.0" prefHeight="35.0" prefWidth="309.0" promptText="Şifre">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txt_sifre_tekrar" layoutX="36.0" layoutY="398.0" prefHeight="35.0" prefWidth="309.0" promptText="Şifre tekrarı">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </TextField>
+      <Button fx:id="btn_uye" layoutX="120.0" layoutY="471.0" mnemonicParsing="false" onAction="#btn_uye_Click" prefHeight="35.0" prefWidth="70.0" style="-fx-background-color: #0077b6;" text="Üye ol" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font></Button>
+      <Label layoutX="299.0" layoutY="480.0" onMouseClicked="#lbl_haveAccount_Click" text="Login" textFill="#aed6e1">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="200.0" layoutY="480.0" text="Hesabın var mı?" textFill="#ff9595">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_sonuc" layoutX="176.0" layoutY="234.0" text="Label" textFill="WHITE" />
+   </children>
+</AnchorPane>
