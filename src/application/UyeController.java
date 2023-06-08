@@ -66,7 +66,7 @@ public class UyeController {
     			cins(combo_cins.getValue())
     			);
 
-    		int islem = Query.insert(sql, veriler);
+    		int islem = Query.crud(sql, veriler);
     		
 			if (islem > 0) {
 				Window.login(uye_form, 0);

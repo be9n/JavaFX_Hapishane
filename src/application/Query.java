@@ -46,7 +46,7 @@ public class Query {
 		}
 	}
 	
-	public static int insert(String sql, ObservableList<Object> veriler) {
+	public static int crud(String sql, ObservableList<Object> veriler) {
 		try {
 			setSql(sql);
 			sorguIfadesi = sqlStatmentKur(veriler);
@@ -58,6 +58,7 @@ public class Query {
 			return 0;
 		}
 	}
+
 	
 	public static PreparedStatement sqlStatmentKur(ObservableList<Object> veriler) {
 		

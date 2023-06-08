@@ -10,10 +10,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class UsersTabloController {
@@ -34,7 +38,7 @@ public class UsersTabloController {
     private TableColumn<Users, String> col_ad;
 
     @FXML
-    private TableColumn<Users, Integer> col_cinsiyet;
+    private TableColumn<Users, String> col_cinsiyet;
 
     @FXML
     private TableColumn<Users, Integer> col_id;
@@ -49,13 +53,13 @@ public class UsersTabloController {
     private TextField txt_ad;
 
     @FXML
-    private TextField txt_cins;
-
-    @FXML
     private TextField txt_soyad;
 
     @FXML
-    private TextField txt_yas;
+    private ComboBox<String> combo_cins;
+
+    @FXML
+    private Spinner<Integer> spin_yas;
 
     @FXML
     private AnchorPane usersTable_form;
@@ -63,19 +67,24 @@ public class UsersTabloController {
     @FXML
     private TableView<Users> tbl_users;
 
+    ObservableList<Object> veriler;
     String sql;
+    Users kayit = new Users();
     public void DegerleriGetir(TableView tablo) {
-		sql="select * from users";
+		sql="select * from users where yetki = 0";
 		ObservableList<Users> kayitlarListe = FXCollections.observableArrayList();
 		
 		try {
 			ResultSet getirilen = Query.selectNoParamiters(sql);
+			
+			String cins;
 			while(getirilen.next()) {
+				cins = cins(getirilen.getInt("gender"));
 				kayitlarListe.add(new Users(
 						getirilen.getInt("id"),
 						getirilen.getString("kul_ad"),
 						getirilen.getString("kul_soyad"),
-						getirilen.getInt("gender"),
+						cins,
 						getirilen.getInt("age"))
 				);
 			}
@@ -90,18 +99,100 @@ public class UsersTabloController {
 			// TODO Auto-generated catch block
 			System.out.println(e);
 		}
+		
+		disableProps(true);
 	}
     
     @FXML
+    void tbl_users_MouseClick(MouseEvent event) {
+    	Users selectedItem = tbl_users.getSelectionModel().getSelectedItem();
+    	if(selectedItem != null) {
+    		disableProps(false);
+    		makeComboBox(combo_cins);
+    		makeSpinner(spin_yas);
+    	 }
+    	 
+    	kayit =  tbl_users.getItems().get(tbl_users.getSelectionModel().getSelectedIndex());
+    	txt_ad.setText(kayit.getKul_ad());
+    	txt_soyad.setText(kayit.getKul_soyad());
+    	combo_cins.setValue(kayit.getCins());
+    	spin_yas.getValueFactory().setValue(kayit.getYas());
+    		
+    }
+    
+    @FXML
     void btn_guncelle_Click(ActionEvent event) {
-
+    	sql = "update users set kul_ad=?, kul_soyad=?, age=?, gender=? where id = ?";
+    	veriler = FXCollections.observableArrayList(
+    			txt_ad.getText(),
+    			txt_soyad.getText(),
+    			spin_yas.getValue(),
+    			cins(combo_cins.getValue()),
+    			getKayitId()
+    			);
+    	int sonuc = Query.crud(sql, veriler);
+    	DegerleriGetir(tbl_users);
     }
 
+    public int getKayitId() {
+    	kayit =  tbl_users.getItems().get(tbl_users.getSelectionModel().getSelectedIndex());
+    	return kayit.getId();
+    }
+    
     @FXML
     void btn_sil_Click(ActionEvent event) {
-
+    	sql = "delete from users where id = ?";
+    	
+    	
+		veriler = FXCollections.observableArrayList(getKayitId());
+    	
+		int sonuc = Query.crud(sql, veriler);
+		DegerleriGetir(tbl_users);
     }
 
+    public String cins(int cins) {
+    	String check;
+    	if(cins == 0) {
+    		check = "Erkek";
+    	}else {
+    		check = "Kadın";
+    	}
+    	
+    	return check;
+    }
+    
+    public int cins(String cins) {
+    	int check;
+    	if(cins == "Erkek") {
+    		check = 0;
+    	}else {
+    		check = 1;
+    	}
+    	
+    	return check;
+    }
+    
+    public void disableProps(boolean bool) {
+    	txt_ad.setDisable(bool);
+    	txt_soyad.setDisable(bool);
+    	
+    	combo_cins.setDisable(bool);
+    	spin_yas.setDisable(bool);
+    	
+    	btn_guncelle.setDisable(bool);
+    	btn_sil.setDisable(bool);
+    }
+    
+    public void makeSpinner(Spinner<Integer> spinner) {
+    	spinner.setEditable(true);
+    	SpinnerValueFactory<Integer> spinDegerleri = new SpinnerValueFactory.IntegerSpinnerValueFactory(5, 100);
+    	spinner.setValueFactory(spinDegerleri);
+    }
+    
+    public void makeComboBox(ComboBox<String> combo) {
+    	combo.getItems().addAll("Erkek", "Kadın");
+	}
+    
     @FXML
     void initialize() {
     	DegerleriGetir(tbl_users);

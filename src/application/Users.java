@@ -4,12 +4,12 @@ public class Users{
 	private int id;
 	private String kul_ad;
 	private String kul_soyad;
-	private int cins;
+	private String cins;
 	private int yas;
 	
+	Users() {}
 	
-	
-	Users(int id, String kul_ad, String kul_soyad, int cins, int yas) {
+	Users(int id, String kul_ad, String kul_soyad, String cins, int yas) {
 		this.id = id;
 		this.kul_ad = kul_ad;
 		this.kul_soyad = kul_soyad;
@@ -42,11 +42,11 @@ public class Users{
 	}
 
 	
-	public int getCins() {
+	public String getCins() {
 		return cins;
 	}
 	
-	public void setCins(int cins) {
+	public void setCins(String cins) {
 		this.cins = cins;
 	}
 
