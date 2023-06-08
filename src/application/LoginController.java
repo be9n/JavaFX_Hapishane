@@ -31,7 +31,7 @@ public class LoginController {
     
     @FXML
     private TextField txt_kul_adi;
-
+    
     @FXML
     private TextField txt_sifre;
     
@@ -42,7 +42,7 @@ public class LoginController {
     private Button btn_uye;
 
     String sql;
-    ObservableList<String> veriler1;
+    ObservableList<Object> veriler1;
     @FXML
     void btn_login_Click(ActionEvent event) {
     	
@@ -60,7 +60,6 @@ public class LoginController {
 					Window.login(login_form, getirilen.getInt("yetki"));
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		
@@ -69,8 +68,7 @@ public class LoginController {
 
     @FXML
     void btn_uye_Click(ActionEvent event) {
-    	Window win = new Window();
-		login_form.getChildren().setAll(win.switchPane("uye"));
+    	Window.inSwitch(login_form, "uye");
     }
 
     @FXML

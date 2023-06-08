@@ -8,7 +8,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -31,23 +34,39 @@ public class UyeController {
     private TextField txt_kul_adi;
 
     @FXML
+    private TextField txt_kul_soy;
+    
+    @FXML
     private TextField txt_sifre;
 
     @FXML
     private TextField txt_sifre_tekrar;
 
     @FXML
+    private ComboBox<String> combo_cins;
+    
+    @FXML
+    private Spinner<Integer> spin_yas;
+    
+    @FXML
     private AnchorPane uye_form;
 
     String sql;
     
-    ObservableList<String> veriler1;
+    ObservableList<Object> veriler;
     @FXML
     void btn_uye_Click(ActionEvent event) {
-    	sql = "INSERT INTO users (kul_ad, sifre) VALUES (?, ?)";
-    	veriler1 = FXCollections.observableArrayList(txt_kul_adi.getText(), Query.MD5Sifrele(txt_sifre.getText()));
+    	sql = "INSERT INTO users (kul_ad, kul_soyad, sifre, age, gender) VALUES (?, ?, ?, ?, ?)";
+    	
+    	veriler = FXCollections.observableArrayList(
+    			txt_kul_adi.getText(),
+    			txt_kul_soy.getText(),
+    			Query.MD5Sifrele(txt_sifre.getText()),
+    			spin_yas.getValue(),
+    			cins(combo_cins.getValue())
+    			);
 
-    		int islem = Query.insert(sql, veriler1);
+    		int islem = Query.insert(sql, veriler);
     		
 			if (islem > 0) {
 				Window.login(uye_form, 0);
@@ -58,11 +77,34 @@ public class UyeController {
 
     @FXML
     void lbl_haveAccount_Click(MouseEvent  event) {
-    	Window win = new Window();
-		uye_form.getChildren().setAll(win.switchPane("login"));
+    	Window.inSwitch(uye_form, "login");
     }
 
+    public void makeSpinner() {
+    	spin_yas.setEditable(true);
+    	SpinnerValueFactory<Integer> spinDegerleri = new SpinnerValueFactory.IntegerSpinnerValueFactory(5, 100);
+    	spin_yas.setValueFactory(spinDegerleri);
+    }
+    
+    public void makeComboBox() {
+    	combo_cins.getItems().addAll("Erkek", "Kadın");
+	}
+    
+    public int cins(String cins) {
+    	int check;
+    	if(cins.equals("Erkek")) {
+    		check = 0;
+    	}else {
+    		check = 1;
+    	}
+    	
+    	return check;
+    }
+    
     @FXML
-    void initialize() {}
+    void initialize() {
+    	makeSpinner();
+    	makeComboBox();
+    }
 
 }

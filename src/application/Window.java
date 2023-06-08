@@ -6,14 +6,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Window {
-	String path;
+	static String path;
 	
-	public void openWindow(String window) {
+	public static void openWindow(String window) {
 		try {
 			path = window + ".fxml";
 			
     		Stage primaryStage = new Stage();
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource(path));
+			AnchorPane root = (AnchorPane)FXMLLoader.load(application.Main.class.getResource(path));
+			// If the function is not static
+			// AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource(path));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
@@ -23,10 +25,10 @@ public class Window {
 		}
 	}
 	
-	public AnchorPane switchPane(String pane) {
+	public static AnchorPane switchPane(String pane) {
 		try {
 			path = pane + ".fxml";
-			AnchorPane form = (AnchorPane) FXMLLoader.load(getClass().getResource(path));
+			AnchorPane form = (AnchorPane) FXMLLoader.load(application.Main.class.getResource(path));
 			return form;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -34,7 +36,7 @@ public class Window {
 		}
 	}
 	
-	public void closeWindow(AnchorPane pane) {
+	public static void closeWindow(AnchorPane pane) {
 		Stage stage = (Stage) pane.getScene().getWindow();
 		stage.close();
 	}
@@ -46,8 +48,16 @@ public class Window {
 		}else {
 			panel = "kullaniciPaneli";
 		}
-		Window win = new Window();
-		win.closeWindow(oldPane);
-		win.openWindow(panel);
+		closeWindow(oldPane);
+		openWindow(panel);
+	}
+	
+	public static void logout(AnchorPane oldPane) {
+		closeWindow(oldPane);
+		openWindow("login");
+	}
+	
+	public static void inSwitch(AnchorPane oldPane, String pane) {
+		oldPane.getChildren().setAll(switchPane(pane));
 	}
 }

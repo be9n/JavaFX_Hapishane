@@ -23,9 +23,7 @@ public class kullaniciPaneliController {
 
     @FXML
     void btn_logout_Click(ActionEvent event) {
-    	Window win = new Window();
-		win.closeWindow(kullaniciPaneli);
-		win.openWindow("login");
+    	Window.logout(kullaniciPaneli);
     }
 
     @FXML

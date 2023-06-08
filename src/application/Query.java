@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.IsteMySQL.Util.VeritabaniUtil;
 
@@ -15,55 +16,67 @@ public class Query {
 	static Connection baglanti = null;
     static PreparedStatement sorguIfadesi = null;
     static ResultSet getirilen = null;
-    
-	public Query() {
-		baglanti = VeritabaniUtil.Baglan();
-	}
+    static private String sql;
+
 	
-	
-	public static ResultSet select(String sql, ObservableList<String> veriler) {
-		
+	public static ResultSet select(String sql, ObservableList<Object> veriler) {
 		try {
-			/*sorguIfadesi = baglanti.prepareStatement(sql);
-			
-			
-			for(int i =0; i < veriler.size(); i++) {
-				sorguIfadesi.setString(i + 1, veriler.get(i));
-			}*/
-			sorguIfadesi = sqlStatmentKur(sql, veriler);
+			setSql(sql);
+			sorguIfadesi = sqlStatmentKur(veriler);
 			getirilen = sorguIfadesi.executeQuery();
 			
 			return getirilen;
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (SQLException e) {
+			System.out.println(e);
 			return null;
 		}
 	}
 	
-	public static int insert(String sql, ObservableList<String> veriler) {
-		
+	public static ResultSet selectNoParamiters(String sql) {
 		try {
-			sorguIfadesi = sqlStatmentKur(sql, veriler);
+			baglanti = VeritabaniUtil.Baglan();	
+			setSql(sql);
+			sorguIfadesi = baglanti.prepareStatement(getSql());
+			getirilen = sorguIfadesi.executeQuery();
+			
+			return getirilen;
+		} catch (SQLException e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+	
+	public static int insert(String sql, ObservableList<Object> veriler) {
+		try {
+			setSql(sql);
+			sorguIfadesi = sqlStatmentKur(veriler);
 			int islem = sorguIfadesi.executeUpdate();
 			
 			return islem;
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			System.out.println(e);
 			return 0;
 		}
 	}
 	
-	public static PreparedStatement sqlStatmentKur(String sql, ObservableList<String> veriler) {
+	public static PreparedStatement sqlStatmentKur(ObservableList<Object> veriler) {
+		
 		try {
 		baglanti = VeritabaniUtil.Baglan();	
-		sorguIfadesi = baglanti.prepareStatement(sql);
+		sorguIfadesi = baglanti.prepareStatement(getSql());
 		
 		for(int i =0; i < veriler.size(); i++) {
-			sorguIfadesi.setString(i + 1, veriler.get(i));
+			
+			if(veriler.get(i) instanceof Integer) {
+				sorguIfadesi.setInt(i + 1, (Integer) veriler.get(i));
+			}else if(veriler.get(i) instanceof String) {
+				sorguIfadesi.setString(i + 1, (String) veriler.get(i));
+			}
 		}
 		
 			return sorguIfadesi;
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (SQLException e) {
+			System.out.println(e);
 			return null;
 		}
 	}
@@ -83,5 +96,14 @@ public class Query {
 		} catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	
+	public static String getSql() {
+		return sql;
+	}
+
+	public static void setSql(String sql) {
+		Query.sql = sql;
 	}
 }
