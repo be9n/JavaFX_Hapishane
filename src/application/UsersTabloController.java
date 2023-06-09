@@ -70,7 +70,7 @@ public class UsersTabloController {
     ObservableList<Object> veriler;
     String sql;
     Users kayit = new Users();
-    public void DegerleriGetir(TableView tablo) {
+    public void DegerleriGetir(TableView<Users> tablo) {
 		sql="select * from users where yetki = 0";
 		ObservableList<Users> kayitlarListe = FXCollections.observableArrayList();
 		
@@ -79,7 +79,7 @@ public class UsersTabloController {
 			
 			String cins;
 			while(getirilen.next()) {
-				cins = cins(getirilen.getInt("gender"));
+				cins = FunctionsClass.giveStringCinsiyet(getirilen.getInt("gender"));
 				kayitlarListe.add(new Users(
 						getirilen.getInt("id"),
 						getirilen.getString("kul_ad"),
@@ -127,7 +127,7 @@ public class UsersTabloController {
     			txt_ad.getText(),
     			txt_soyad.getText(),
     			spin_yas.getValue(),
-    			cins(combo_cins.getValue()),
+    			FunctionsClass.giveIntCinsiyet(combo_cins.getValue()),
     			getKayitId()
     			);
     	int sonuc = Query.crud(sql, veriler);
@@ -149,30 +149,9 @@ public class UsersTabloController {
 		int sonuc = Query.crud(sql, veriler);
 		DegerleriGetir(tbl_users);
     }
-
-    public String cins(int cins) {
-    	String check;
-    	if(cins == 0) {
-    		check = "Erkek";
-    	}else {
-    		check = "Kadın";
-    	}
-    	
-    	return check;
-    }
-    
-    public int cins(String cins) {
-    	int check;
-    	if(cins == "Erkek") {
-    		check = 0;
-    	}else {
-    		check = 1;
-    	}
-    	
-    	return check;
-    }
     
     public void disableProps(boolean bool) {
+    	
     	txt_ad.setDisable(bool);
     	txt_soyad.setDisable(bool);
     	

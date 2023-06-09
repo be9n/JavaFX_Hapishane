@@ -9,12 +9,16 @@ import javafx.scene.layout.AnchorPane;
 
 public class DashboardController {
 
+
     @FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
 
+    @FXML
+    private Button btn_hukumluler;
+    
     @FXML
     private Button btn_kullanicilar;
     
@@ -30,6 +34,11 @@ public class DashboardController {
     @FXML
     void btn_logout_Click(ActionEvent event) {
     	Window.logout(dashboard);
+    }
+    
+    @FXML
+    void btn_hukumluler_Click(ActionEvent event) {
+    	Window.inSwitch(dsh_window, "hukumluEkle");
     }
     
     @FXML

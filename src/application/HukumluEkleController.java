@@ -1,5 +1,6 @@
 package application;
 
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -12,74 +13,66 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class UyeController {
+public class HukumluEkleController {
 
     @FXML
     private ResourceBundle resources;
 
     @FXML
-    private URL location;
-
-    @FXML
-    private Button btn_uye;
-
-    @FXML
     private Label lbl_sonuc;
     
     @FXML
-    private TextField txt_kul_adi;
+    private URL location;
 
     @FXML
-    private TextField txt_kul_soy;
-    
-    @FXML
-    private TextField txt_sifre;
-
-    @FXML
-    private TextField txt_sifre_tekrar;
+    private Button btn_ekle;
 
     @FXML
     private ComboBox<String> combo_cins;
-    
+
+    @FXML
+    private AnchorPane huk_form;
+
     @FXML
     private Spinner<Integer> spin_yas;
-    
-    @FXML
-    private AnchorPane uye_form;
 
-    String sql;
+    @FXML
+    private TextField txt_ana_ad;
+
+    @FXML
+    private TextField txt_baba_ad;
+
+    @FXML
+    private TextField txt_huk_adi;
+
+    @FXML
+    private TextField txt_huk_soy;
     
+    String sql;
     ObservableList<Object> veriler;
     @FXML
     void btn_uye_Click(ActionEvent event) {
-    	sql = "INSERT INTO users (kul_ad, kul_soyad, sifre, age, gender) VALUES (?, ?, ?, ?, ?)";
+    	sql = "INSERT INTO hukumluler (huk_ad, huk_soyad, huk_ana_ad, huk_baba_ad, cins, yas) VALUES (?, ?, ?, ?, ?, ?)";
     	
     	veriler = FXCollections.observableArrayList(
-    			txt_kul_adi.getText(),
-    			txt_kul_soy.getText(),
-    			Query.MD5Sifrele(txt_sifre.getText()),
-    			spin_yas.getValue(),
-    			FunctionsClass.giveIntCinsiyet(combo_cins.getValue())
+    			txt_huk_adi.getText(),
+    			txt_huk_soy.getText(),
+    			txt_ana_ad.getText(),
+    			txt_baba_ad.getText(),
+    			FunctionsClass.giveIntCinsiyet(combo_cins.getValue()),
+    			spin_yas.getValue()
     			);
 
     		int islem = Query.crud(sql, veriler);
     		
 			if (islem > 0) {
-				Window.login(uye_form, 0);
+				lbl_sonuc.setText("Hükümlü başarıyla eklendi");
 			}else {
 				lbl_sonuc.setText("Kullanici adi veya sifre hatali...");
 			}
     }
-
-    @FXML
-    void lbl_haveAccount_Click(MouseEvent  event) {
-    	Window.inSwitch(uye_form, "login");
-    }
-    
-    
     
     @FXML
     void initialize() {

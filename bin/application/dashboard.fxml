@@ -12,7 +12,7 @@
          <children>
             <AnchorPane prefHeight="564.0" prefWidth="180.0" style="-fx-background-color: RGB(40, 42, 52);">
                <children>
-                  <Button layoutX="30.0" layoutY="150.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" style="-fx-background-color: RGB(60, 63, 81);" text="Button" textFill="WHITE">
+                  <Button fx:id="btn_hukumluler" layoutX="30.0" layoutY="150.0" mnemonicParsing="false" onAction="#btn_hukumluler_Click" prefHeight="38.0" prefWidth="150.0" style="-fx-background-color: RGB(60, 63, 81);" text="Hükümlüler" textFill="WHITE">
                      <font>
                         <Font name="System Italic" size="14.0" />
                      </font>
