@@ -27,6 +27,9 @@ public class HukumluEkleController {
     private URL location;
 
     @FXML
+    private Button btn_hukumluler;
+    
+    @FXML
     private Button btn_ekle;
 
     @FXML
@@ -37,6 +40,9 @@ public class HukumluEkleController {
 
     @FXML
     private Spinner<Integer> spin_yas;
+    
+    @FXML
+    private Spinner<Integer> spin_sure;
 
     @FXML
     private TextField txt_ana_ad;
@@ -44,6 +50,9 @@ public class HukumluEkleController {
     @FXML
     private TextField txt_baba_ad;
 
+    @FXML
+    private TextField txt_suc;
+    
     @FXML
     private TextField txt_huk_adi;
 
@@ -53,14 +62,16 @@ public class HukumluEkleController {
     String sql;
     ObservableList<Object> veriler;
     @FXML
-    void btn_uye_Click(ActionEvent event) {
-    	sql = "INSERT INTO hukumluler (huk_ad, huk_soyad, huk_ana_ad, huk_baba_ad, cins, yas) VALUES (?, ?, ?, ?, ?, ?)";
+    void btn_ekle_Click(ActionEvent event) {
+    	sql = "INSERT INTO hukumluler (huk_ad, huk_soyad, huk_ana_ad, huk_baba_ad, huk_suc, ceza_sure, cins, yas) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     	
     	veriler = FXCollections.observableArrayList(
     			txt_huk_adi.getText(),
     			txt_huk_soy.getText(),
     			txt_ana_ad.getText(),
     			txt_baba_ad.getText(),
+    			txt_suc.getText(),
+    			spin_sure.getValue(),
     			FunctionsClass.giveIntCinsiyet(combo_cins.getValue()),
     			spin_yas.getValue()
     			);
@@ -75,9 +86,15 @@ public class HukumluEkleController {
     }
     
     @FXML
+    void btn_hukumluler_Click(ActionEvent event) {
+    	Window.inSwitch(huk_form, "hukumlulerTablo");
+    }
+    
+    @FXML
     void initialize() {
-    	ObservableList<String> veriler2 = FXCollections.observableArrayList("Erkek", "Kız");
     	FunctionsClass.makeSpinner(spin_yas, 5, 100);
+    	FunctionsClass.makeSpinner(spin_sure, 1, 1000);
+    	ObservableList<String> veriler2 = FXCollections.observableArrayList("Erkek", "Kadın");
     	FunctionsClass.makeComboBox(combo_cins, veriler2);
     }
 

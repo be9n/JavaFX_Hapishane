@@ -38,7 +38,7 @@ public class DashboardController {
     
     @FXML
     void btn_hukumluler_Click(ActionEvent event) {
-    	Window.inSwitch(dsh_window, "hukumluEkle");
+    	Window.inSwitch(dsh_window, "hukumlulerTablo");
     }
     
     @FXML

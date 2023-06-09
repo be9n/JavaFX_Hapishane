@@ -108,8 +108,9 @@ public class UsersTabloController {
     	Users selectedItem = tbl_users.getSelectionModel().getSelectedItem();
     	if(selectedItem != null) {
     		disableProps(false);
-    		makeComboBox(combo_cins);
-    		makeSpinner(spin_yas);
+    		FunctionsClass.makeSpinner(spin_yas, 5, 100);
+        	ObservableList<String> veriler2 = FXCollections.observableArrayList("Erkek", "Kadın");
+        	FunctionsClass.makeComboBox(combo_cins, veriler2);
     	 }
     	 
     	kayit =  tbl_users.getItems().get(tbl_users.getSelectionModel().getSelectedIndex());
@@ -162,15 +163,6 @@ public class UsersTabloController {
     	btn_sil.setDisable(bool);
     }
     
-    public void makeSpinner(Spinner<Integer> spinner) {
-    	spinner.setEditable(true);
-    	SpinnerValueFactory<Integer> spinDegerleri = new SpinnerValueFactory.IntegerSpinnerValueFactory(5, 100);
-    	spinner.setValueFactory(spinDegerleri);
-    }
-    
-    public void makeComboBox(ComboBox<String> combo) {
-    	combo.getItems().addAll("Erkek", "Kadın");
-	}
     
     @FXML
     void initialize() {

@@ -47,7 +47,7 @@ public class UyeController {
     @FXML
     private Spinner<Integer> spin_yas;
     
-    @FXML
+    @FXML 
     private AnchorPane uye_form;
 
     String sql;
