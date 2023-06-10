@@ -24,6 +24,9 @@ public class DashboardController {
     
     @FXML
     private Button btn_logout;
+    
+    @FXML
+    private Button btn_talebler;
 
     @FXML
     private AnchorPane dashboard;
@@ -46,6 +49,11 @@ public class DashboardController {
     	Window.inSwitch(dsh_window, "usersTablo");
     }
 
+    @FXML
+    void btn_talebler_Click(ActionEvent event) {
+    	Window.inSwitch(dsh_window, "talebler");
+    }
+    
     @FXML
     void initialize() {}
 

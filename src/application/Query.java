@@ -49,6 +49,7 @@ public class Query {
 	public static int crud(String sql, ObservableList<Object> veriler) {
 		try {
 			setSql(sql);
+			
 			sorguIfadesi = sqlStatmentKur(veriler);
 			int islem = sorguIfadesi.executeUpdate();
 			
@@ -58,7 +59,6 @@ public class Query {
 			return 0;
 		}
 	}
-
 	
 	public static PreparedStatement sqlStatmentKur(ObservableList<Object> veriler) {
 		
@@ -66,14 +66,13 @@ public class Query {
 		baglanti = VeritabaniUtil.Baglan();	
 		sorguIfadesi = baglanti.prepareStatement(getSql());
 		
-		for(int i =0; i < veriler.size(); i++) {
-			
-			if(veriler.get(i) instanceof Integer) {
-				sorguIfadesi.setInt(i + 1, (Integer) veriler.get(i));
-			}else if(veriler.get(i) instanceof String) {
-				sorguIfadesi.setString(i + 1, (String) veriler.get(i));
+			for(int i =0; i < veriler.size(); i++) {
+				if(veriler.get(i) instanceof Integer) {
+					sorguIfadesi.setInt(i + 1, (Integer) veriler.get(i));
+				}else if(veriler.get(i) instanceof String) {
+					sorguIfadesi.setString(i + 1, (String) veriler.get(i));
+				}
 			}
-		}
 		
 			return sorguIfadesi;
 		} catch (SQLException e) {

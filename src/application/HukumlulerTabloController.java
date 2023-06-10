@@ -16,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -81,8 +82,6 @@ public class HukumlulerTabloController {
     @FXML
     private TextField txt_ana_ad;
 
-    @FXML
-    private TextField txt_ara;
 
     @FXML
     private TextField txt_baba_ad;
@@ -101,12 +100,14 @@ public class HukumlulerTabloController {
     Hukumlu kayit = new Hukumlu();
     public void DegerleriGetir(TableView<Hukumlu> tablo) {
 		sql="select * from hukumluler";
-		ObservableList<Hukumlu> kayitlarListe = FXCollections.observableArrayList();
-		
+		ResultSet getirilen = Query.selectNoParamiters(sql);
+		tabloDoldur(getirilen);
+	}
+    
+    public void tabloDoldur(ResultSet getirilen) {
+    	ObservableList<Hukumlu> kayitlarListe = FXCollections.observableArrayList();
+    	String cins;
 		try {
-			ResultSet getirilen = Query.selectNoParamiters(sql);
-			
-			String cins;
 			while(getirilen.next()) {
 				cins = FunctionsClass.giveStringCinsiyet(getirilen.getInt("cins"));
 				kayitlarListe.add(new Hukumlu(
@@ -121,24 +122,25 @@ public class HukumlulerTabloController {
 						getirilen.getInt("yas")
 						));
 			}
-			
-			col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-			col_ad.setCellValueFactory(new PropertyValueFactory<>("huk_ad"));
-			col_soyad.setCellValueFactory(new PropertyValueFactory<>("huk_soyad"));
-			col_ana_ad.setCellValueFactory(new PropertyValueFactory<>("huk_ana_ad"));
-			col_baba_ad.setCellValueFactory(new PropertyValueFactory<>("huk_baba_ad"));
-			col_suc.setCellValueFactory(new PropertyValueFactory<>("huk_suc"));
-			col_sure.setCellValueFactory(new PropertyValueFactory<>("ceza_sure"));
-			col_cinsiyet.setCellValueFactory(new PropertyValueFactory<>("cins"));
-			col_yas.setCellValueFactory(new PropertyValueFactory<>("yas"));
-			tbl_hukumluler.setItems(kayitlarListe);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e);
+			e.printStackTrace();
 		}
 		
+		col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+		col_ad.setCellValueFactory(new PropertyValueFactory<>("huk_ad"));
+		col_soyad.setCellValueFactory(new PropertyValueFactory<>("huk_soyad"));
+		col_ana_ad.setCellValueFactory(new PropertyValueFactory<>("huk_ana_ad"));
+		col_baba_ad.setCellValueFactory(new PropertyValueFactory<>("huk_baba_ad"));
+		col_suc.setCellValueFactory(new PropertyValueFactory<>("huk_suc"));
+		col_sure.setCellValueFactory(new PropertyValueFactory<>("ceza_sure"));
+		col_cinsiyet.setCellValueFactory(new PropertyValueFactory<>("cins"));
+		col_yas.setCellValueFactory(new PropertyValueFactory<>("yas"));
+		
+		tbl_hukumluler.setItems(kayitlarListe);
+		
 		disableProps(true);
-	}
+    }
     
     public void disableProps(boolean bool) {
     	
@@ -201,7 +203,7 @@ public class HukumlulerTabloController {
         	FunctionsClass.makeSpinner(spin_sure, 1, 1000);
         	ObservableList<String> veriler2 = FXCollections.observableArrayList("Erkek", "Kadın");
         	FunctionsClass.makeComboBox(combo_cins, veriler2);
-    	 }
+    	 
     	 
     	kayit =  tbl_hukumluler.getItems().get(tbl_hukumluler.getSelectionModel().getSelectedIndex());
     	txt_ad.setText(kayit.getHuk_ad());
@@ -212,6 +214,7 @@ public class HukumlulerTabloController {
     	spin_sure.getValueFactory().setValue(kayit.getCeza_sure());
     	combo_cins.setValue(kayit.getCins());
     	spin_yas.getValueFactory().setValue(kayit.getYas());
+    	}
     }
     
     @FXML
@@ -219,6 +222,7 @@ public class HukumlulerTabloController {
     	Window.inSwitch(hukumluTable_form, "hukumluEkle");
     }
 
+    
     @FXML
     void initialize() {
     	DegerleriGetir(tbl_hukumluler);

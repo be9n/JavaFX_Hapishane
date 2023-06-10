@@ -30,12 +30,6 @@
                         <TableColumn fx:id="col_yas" prefWidth="53.0" text="Yaş" />
                      </columns>
                   </TableView>
-                  <TextField fx:id="txt_ara" layoutX="406.0" layoutY="2.0" promptText="Hükümlü ara" />
-                  <Label layoutX="370.0" layoutY="4.0" text="Ara:" textFill="WHITE">
-                     <font>
-                        <Font name="System Italic" size="15.0" />
-                     </font>
-                  </Label>
                   <Button fx:id="btn_ekle" layoutX="7.0" layoutY="1.0" mnemonicParsing="false" onAction="#btn_ekle_Click" prefHeight="27.0" prefWidth="108.0" style="-fx-background-color: #0077b6;" text="Hükümlü ekle" textFill="WHITE">
                      <font>
                         <Font name="System Italic" size="13.0" />

@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -111,14 +110,14 @@ public class UsersTabloController {
     		FunctionsClass.makeSpinner(spin_yas, 5, 100);
         	ObservableList<String> veriler2 = FXCollections.observableArrayList("Erkek", "Kadın");
         	FunctionsClass.makeComboBox(combo_cins, veriler2);
-    	 }
+    	 
     	 
     	kayit =  tbl_users.getItems().get(tbl_users.getSelectionModel().getSelectedIndex());
     	txt_ad.setText(kayit.getKul_ad());
     	txt_soyad.setText(kayit.getKul_soyad());
     	combo_cins.setValue(kayit.getCins());
     	spin_yas.getValueFactory().setValue(kayit.getYas());
-    		
+    	}
     }
     
     @FXML
