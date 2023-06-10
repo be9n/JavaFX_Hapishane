@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -28,6 +29,9 @@ public class TaleblerController {
 
     @FXML
     private Button btn_kabul;
+    
+    @FXML
+    private ComboBox<String> combo_durum_tipi;
     
     @FXML
     private TableColumn<Talebler, String> col_durum;
@@ -53,10 +57,22 @@ public class TaleblerController {
     ObservableList<Object> veriler;
     String sql;
     Talebler kayit = new Talebler();
+    String durum = "Bekliyor";
+    ResultSet getirilen;
     
     public void DegerleriGetir(TableView<Talebler> tablo) {
-		sql="select * from talebler";
-		ResultSet getirilen = Query.selectNoParamiters(sql);
+    	if(durum.equals("Hepsi")) {
+    		sql="select * from talebler";
+    		getirilen = Query.selectNoParamiters(sql);
+    	}else {
+    		sql="select * from talebler where durum = ?";
+    	
+    		veriler = FXCollections.observableArrayList(
+    			durum
+    			);
+			getirilen = Query.select(sql, veriler);
+    	}
+    	
 		tabloDoldur(getirilen);
 	}
     
@@ -68,7 +84,7 @@ public class TaleblerController {
     			obj_id
     			);
     	
-    	ResultSet getirilen = Query.select(sql, veriler);
+    	getirilen = Query.select(sql, veriler);
     	try {
     		if(getirilen.next()) {
     		return getirilen.getString(obj);
@@ -117,14 +133,35 @@ public class TaleblerController {
     
     @FXML
     void btn_kabul_Click(ActionEvent event) {
+    	sql = "update talebler set durum=? where id = ?";
+    	
+    	veriler = FXCollections.observableArrayList(
+    			"Kabul edildi",
+    			getKayitId()
+    			);
 
+    		int islem = Query.crud(sql, veriler);
+    		DegerleriGetir(tbl_talebler);
     }
 
     @FXML
     void btn_red_Click(ActionEvent event) {
+    	sql = "update talebler set durum=? where id = ?";
+    	
+    	veriler = FXCollections.observableArrayList(
+    			"Red edildi",
+    			getKayitId()
+    			);
 
+    		int islem = Query.crud(sql, veriler);
+    		DegerleriGetir(tbl_talebler);
     }
 
+    public int getKayitId() {
+    	kayit =  tbl_talebler.getItems().get(tbl_talebler.getSelectionModel().getSelectedIndex());
+    	return kayit.getId();
+    }
+    
     @FXML
     void tbl_talebler_MouseClick(MouseEvent event) {
     	Talebler selectedItem = tbl_talebler.getSelectionModel().getSelectedItem();
@@ -136,6 +173,14 @@ public class TaleblerController {
     @FXML
     void initialize() {
     	DegerleriGetir(tbl_talebler);
+    	ObservableList<String> veriler2 = FXCollections.observableArrayList("Hepsi", "Bekliyor", "Kabul edildi", "Red edildi");
+    	FunctionsClass.makeComboBox(combo_durum_tipi, veriler2);
+    	combo_durum_tipi.setValue(durum);
+    	
+    	combo_durum_tipi.setOnAction(event -> {
+            durum = combo_durum_tipi.getValue();
+            DegerleriGetir(tbl_talebler);
+        });
     }
 
 }
