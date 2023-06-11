@@ -69,7 +69,6 @@ public class LoginController {
 					lbl_sonuc.setText("Kullanici adi veya sifre hatali...");
 				}else {
 					Window.login(login_form, getirilen.getInt("yetki"), getirilen.getInt("id"));
-					//setUserSession(getirilen.getInt("id"));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

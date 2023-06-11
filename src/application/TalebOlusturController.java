@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 public class TalebOlusturController {
 
@@ -14,13 +15,37 @@ public class TalebOlusturController {
     private URL location;
 
     @FXML
-    private Label lbl_1;
+    private Label lbl_hukumlu_id;
 
-    public int userId = LoginController.getUserSession();
+    @FXML
+    private AnchorPane talebOlustur_form;
     
     @FXML
+    private Label lbl_ziyaretci_id;
+
+    private static int ziyaretci_id;
+    private static int hukumlu_id;
+    
+	public static int getZiyaretci_id() {
+		return ziyaretci_id;
+	}
+
+	public static void setZiyaretci_id(int ziyaretci_id) {
+		TalebOlusturController.ziyaretci_id = ziyaretci_id;
+	}
+
+	public static int getHukumlu_id() {
+		return hukumlu_id;
+	}
+
+	public static void setHukumlu_id(int hukumlu_id) {
+		TalebOlusturController.hukumlu_id = hukumlu_id;
+	}
+
+	@FXML
     void initialize() {
-        lbl_1.setText(String.valueOf(userId));
-    }
+		lbl_hukumlu_id.setText(String.valueOf(getHukumlu_id()));
+		lbl_ziyaretci_id.setText(String.valueOf(getZiyaretci_id()));
+	}
 
 }

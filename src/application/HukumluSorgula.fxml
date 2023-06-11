@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="hukumlu_sorgula_form" prefHeight="564.0" prefWidth="571.0" style="-fx-background-color: RGB(60, 63, 81);" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="application.HukumluSorgulaController">
+   <children>
+      <TextField fx:id="txt_huk_ad" layoutX="90.0" layoutY="129.0" />
+      <TextField fx:id="txt_huk_soyad" layoutX="332.0" layoutY="129.0" />
+      <TextField fx:id="txt_ana_ad" layoutX="90.0" layoutY="179.0" />
+      <TextField fx:id="txt_baba_ad" layoutX="332.0" layoutY="179.0" />
+      <Label layoutX="90.0" layoutY="102.0" text="İsim" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="332.0" layoutY="102.0" text="Soyisim" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="90.0" layoutY="159.0" text="Anne adı" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="332.0" layoutY="159.0" text="Baba adı" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="179.0" layoutY="36.0" text="Hükmülü sorgulama" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="btn_sorgula" layoutX="251.0" layoutY="237.0" mnemonicParsing="false" onAction="#btn_sorgula_Click" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #0077b6;" text="Sorgula" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_huk_ad" layoutX="115.0" layoutY="307.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="110.0" style="-fx-background-color: dda15e;" text="Ad" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_suc" layoutX="115.0" layoutY="363.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="110.0" style="-fx-background-color: dda15e;" text="Suç" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_huk_soyad" layoutX="396.0" layoutY="307.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="110.0" style="-fx-background-color: dda15e;" text="Soyad" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_sure" layoutX="396.0" layoutY="363.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="110.0" style="-fx-background-color: dda15e;" text="Süre" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_yas" layoutX="396.0" layoutY="418.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="110.0" style="-fx-background-color: dda15e;" text="Yaş" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_cins" layoutX="115.0" layoutY="418.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="110.0" style="-fx-background-color: dda15e;" text="Cins" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_taleb_olustur" layoutX="239.0" layoutY="485.0" mnemonicParsing="false" onAction="#btn_taleb_olustur_Click" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: #0077b6;" text="Görüşme talebi" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="68.0" layoutY="319.0" text="İsim" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="345.0" layoutY="319.0" text="Soyisim" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="35.0" layoutY="375.0" text="İşlenen suç" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="57.0" layoutY="430.0" text="Cinsiyet" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="327.0" layoutY="375.0" text="Kalan süre" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="356.0" layoutY="430.0" text="Yaş" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

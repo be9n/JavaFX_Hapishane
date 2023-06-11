@@ -4,8 +4,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="564.0" prefWidth="571.0" style="-fx-background-color: RGB(60, 63, 81);" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="application.TalebOlusturController">
+<AnchorPane fx:id="talebOlustur_form" prefHeight="200.0" prefWidth="400.0" style="-fx-background-color: RGB(40, 42, 52);" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="application.TalebOlusturController">
    <children>
-      <Label fx:id="lbl_1" layoutX="182.0" layoutY="145.0" text="Label" textFill="WHITE" />
+      <Label fx:id="lbl_ziyaretci_id" layoutX="76.0" layoutY="92.0" text="Label" textFill="WHITE" />
+      <Label fx:id="lbl_hukumlu_id" layoutX="256.0" layoutY="92.0" text="Label" textFill="WHITE" />
    </children>
 </AnchorPane>
