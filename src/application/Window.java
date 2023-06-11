@@ -41,13 +41,14 @@ public class Window {
 		stage.close();
 	}
 	
-	public static void login(AnchorPane oldPane, int yetki) {
+	public static void login(AnchorPane oldPane, int yetki, int sessionId) {
 		String panel;
 		if(yetki > 0) {
 			panel = "dashboard";
 		}else {
 			panel = "kullaniciPaneli";
 		}
+		LoginController.setUserSession(sessionId);
 		closeWindow(oldPane);
 		openWindow(panel);
 	}

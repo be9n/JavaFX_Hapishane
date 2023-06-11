@@ -40,8 +40,18 @@ public class LoginController {
 
     @FXML
     private Button btn_uye;
+    
+    private static int userSession;
+    
+    public static int getUserSession() {
+		return userSession;
+	}
 
-    String sql;
+	public static void setUserSession(int userSession) {
+		LoginController.userSession = userSession;
+	}
+
+	String sql;
     ObservableList<Object> veriler1;
     @FXML
     void btn_login_Click(ActionEvent event) {
@@ -52,12 +62,14 @@ public class LoginController {
     		veriler1 = FXCollections.observableArrayList(txt_kul_adi.getText(), Query.MD5Sifrele(txt_sifre.getText()));
         	
 			ResultSet getirilen = Query.select(sql, veriler1);
-			
+				
+		
 			try {
 				if (!getirilen.next()) {
 					lbl_sonuc.setText("Kullanici adi veya sifre hatali...");
 				}else {
-					Window.login(login_form, getirilen.getInt("yetki"));
+					Window.login(login_form, getirilen.getInt("yetki"), getirilen.getInt("id"));
+					//setUserSession(getirilen.getInt("id"));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

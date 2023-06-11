@@ -38,7 +38,7 @@
                      </font>
                   </Button>
                </children></AnchorPane>
-            <AnchorPane fx:id="dsh_window" layoutX="179.0" prefHeight="564.0" prefWidth="571.0" style="-fx-background-color: RGB(60, 63, 81);" />
+            <AnchorPane fx:id="dsh_window" layoutX="180.0" prefHeight="564.0" prefWidth="571.0" style="-fx-background-color: RGB(60, 63, 81);" />
          </children>
       </AnchorPane>
    </children>

@@ -68,7 +68,7 @@ public class UyeController {
     		int islem = Query.crud(sql, veriler);
     		
 			if (islem > 0) {
-				Window.login(uye_form, 0);
+				Window.inSwitch(uye_form, "login");
 			}else {
 				lbl_sonuc.setText("Kullanici adi veya sifre hatali...");
 			}

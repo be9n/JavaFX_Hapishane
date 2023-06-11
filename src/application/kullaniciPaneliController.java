@@ -16,10 +16,21 @@ public class kullaniciPaneliController {
     private URL location;
 
     @FXML
+    private Button btn_1;
+
+    @FXML
     private Button btn_logout;
-    
+
     @FXML
     private AnchorPane kullaniciPaneli;
+
+    @FXML
+    private AnchorPane kul_paneli_window;
+    
+    @FXML
+    void btn_1_Click(ActionEvent event) {
+    	Window.inSwitch(kul_paneli_window, "talebOlustur");
+    }
 
     @FXML
     void btn_logout_Click(ActionEvent event) {
@@ -27,6 +38,12 @@ public class kullaniciPaneliController {
     }
 
     @FXML
-    void initialize() {}
+    void initialize() {
+        assert btn_1 != null : "fx:id=\"btn_1\" was not injected: check your FXML file 'kullaniciPaneli.fxml'.";
+        assert btn_logout != null : "fx:id=\"btn_logout\" was not injected: check your FXML file 'kullaniciPaneli.fxml'.";
+        assert kullaniciPaneli != null : "fx:id=\"kullaniciPaneli\" was not injected: check your FXML file 'kullaniciPaneli.fxml'.";
+
+    }
 
 }
+

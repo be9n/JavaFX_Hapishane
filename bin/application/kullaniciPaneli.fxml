@@ -17,7 +17,7 @@
                         <Font name="System Italic" size="14.0" />
                      </font>
                   </Button>
-                  <Button layoutX="31.0" layoutY="159.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" style="-fx-background-color: RGB(60, 63, 81);" text="Button" textFill="WHITE">
+                  <Button fx:id="btn_1" layoutX="31.0" layoutY="159.0" mnemonicParsing="false" onAction="#btn_1_Click" prefHeight="38.0" prefWidth="150.0" style="-fx-background-color: RGB(60, 63, 81);" text="Button" textFill="WHITE">
                      <font>
                         <Font name="System Italic" size="14.0" />
                      </font>
@@ -33,7 +33,7 @@
                      </font>
                   </Button>
                </children></AnchorPane>
-            <AnchorPane layoutX="179.0" prefHeight="564.0" prefWidth="571.0" style="-fx-background-color: RGB(60, 63, 81);" />
+            <AnchorPane fx:id="kul_paneli_window" layoutX="179.0" prefHeight="564.0" prefWidth="571.0" style="-fx-background-color: RGB(60, 63, 81);" />
          </children>
       </AnchorPane>
    </children>
