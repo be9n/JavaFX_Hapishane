@@ -16,7 +16,7 @@ public class kullaniciPaneliController {
     private URL location;
 
     @FXML
-    private Button btn_1;
+    private Button btn_hukumlu_sorgula;
 
     @FXML
     private Button btn_logout;
@@ -28,7 +28,7 @@ public class kullaniciPaneliController {
     private AnchorPane kul_paneli_window;
     
     @FXML
-    void btn_1_Click(ActionEvent event) {
+    void btn_hukumlu_sorgula_Click(ActionEvent event) {
     	Window.inSwitch(kul_paneli_window, "hukumluSorgula");
     }
 

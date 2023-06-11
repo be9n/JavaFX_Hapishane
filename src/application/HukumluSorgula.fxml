@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="hukumlu_sorgula_form" prefHeight="564.0" prefWidth="571.0" style="-fx-background-color: RGB(60, 63, 81);" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="application.HukumluSorgulaController">
+<AnchorPane fx:id="hukumlu_sorgula_form" prefHeight="564.0" prefWidth="571.0" style="-fx-background-color: RGB(60, 63, 81);" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.HukumluSorgulaController">
    <children>
       <TextField fx:id="txt_huk_ad" layoutX="90.0" layoutY="129.0" />
       <TextField fx:id="txt_huk_soyad" layoutX="332.0" layoutY="129.0" />
