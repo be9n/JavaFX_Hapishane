@@ -20,6 +20,9 @@ public class kullaniciPaneliController {
 
     @FXML
     private Button btn_logout;
+    
+    @FXML
+    private Button btn_taleplerim;
 
     @FXML
     private AnchorPane kullaniciPaneli;
@@ -35,6 +38,11 @@ public class kullaniciPaneliController {
     @FXML
     void btn_logout_Click(ActionEvent event) {
     	Window.logout(kullaniciPaneli);
+    }
+    
+    @FXML
+    void btn_taleplerim_Click(ActionEvent event) {
+    	Window.inSwitch(kul_paneli_window, "Taleplerim");
     }
 
     @FXML

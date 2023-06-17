@@ -56,7 +56,7 @@ public class LoginController {
     @FXML
     void btn_login_Click(ActionEvent event) {
     	
-    	
+    	if(!txt_kul_adi.getText().equals("") && !txt_sifre.getText().equals("")) {
     	sql = "select * from users where kul_ad = ? and sifre = ?";
     	
     		veriler1 = FXCollections.observableArrayList(txt_kul_adi.getText(), Query.MD5Sifrele(txt_sifre.getText()));
@@ -73,7 +73,9 @@ public class LoginController {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		
+    	}else {
+    		lbl_sonuc.setText("Tüm boşlukları doldurunuz!!");
+    	}
     	
     }
 

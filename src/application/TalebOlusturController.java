@@ -35,6 +35,15 @@ public class TalebOlusturController {
     private DatePicker date_tarih;
     
     @FXML
+    private Label lbl_sonuc;
+    
+    @FXML
+    private Label lbl_sonuc_error;
+    
+    @FXML
+    private Label lbl_lbl;
+    
+    @FXML
     private Label lbl_ziyaretci_id;
 
     private static int ziyaretci_id;
@@ -60,7 +69,9 @@ public class TalebOlusturController {
 	
 	 @FXML
 	void btn_talep_olustur_Click(ActionEvent event) {
-		 sql = "INSERT INTO talebler (tarih, ziyaretci_id, hukumlu_id, durum) VALUES (?, ?, ?, ?)";
+		 if(date_tarih.getValue() != null) {
+			 lbl_sonuc_error.setText("");
+		 sql = "INSERT INTO talepler (tarih, ziyaretci_id, hukumlu_id, durum) VALUES (?, ?, ?, ?)";
 	    	
 	    	veriler = FXCollections.observableArrayList(
 	    			String.valueOf(date_tarih.getValue()),
@@ -72,16 +83,23 @@ public class TalebOlusturController {
 	    		int islem = Query.crud(sql, veriler);
 	    		
 				if (islem > 0) {
-					Window.closeWindow(talebOlustur_form);
-				}else {
-					
+					success();
 				}
-		
+		 }else {
+			 lbl_sonuc_error.setText("Tarih seçiniz!");
+		 }
+	}
+	 
+	public void success() {
+		 date_tarih.setVisible(false);
+		 btn_talep_olustur.setVisible(false);
+		 lbl_lbl.setVisible(false);
+		 
+		 lbl_sonuc.setText("Talep başarıyla oluşturuldu");
 	}
 
 	@FXML
     void initialize() {
-		 date_tarih.setConverter(new LocalDateStringConverter(DateTimeFormatter.ofPattern("dd/MM/yyyy"), null));
 	}
 
 }

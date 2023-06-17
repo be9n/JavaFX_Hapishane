@@ -55,23 +55,33 @@ public class UyeController {
     ObservableList<Object> veriler;
     @FXML
     void btn_uye_Click(ActionEvent event) {
-    	sql = "INSERT INTO users (kul_ad, kul_soyad, sifre, age, gender) VALUES (?, ?, ?, ?, ?)";
+    	if(!txt_kul_adi.getText().equals("") && !txt_kul_soy.getText().equals("") && !txt_sifre.getText().equals("")) {
+    		if(combo_cins.getValue() != null) {
+    			
+    			sql = "INSERT INTO users (kul_ad, kul_soyad, sifre, age, gender) VALUES (?, ?, ?, ?, ?)";
     	
-    	veriler = FXCollections.observableArrayList(
-    			txt_kul_adi.getText(),
-    			txt_kul_soy.getText(),
-    			Query.MD5Sifrele(txt_sifre.getText()),
-    			spin_yas.getValue(),
-    			FunctionsClass.giveIntCinsiyet(combo_cins.getValue())
-    			);
+    			veriler = FXCollections.observableArrayList(
+    					txt_kul_adi.getText(),
+    					txt_kul_soy.getText(),
+    					Query.MD5Sifrele(txt_sifre.getText()),
+    					spin_yas.getValue(),
+    					FunctionsClass.giveIntCinsiyet(combo_cins.getValue())
+    					);
 
-    		int islem = Query.crud(sql, veriler);
-    		
-			if (islem > 0) {
-				Window.inSwitch(uye_form, "login");
-			}else {
-				lbl_sonuc.setText("Kullanici adi veya sifre hatali...");
-			}
+    			if(txt_sifre.getText().equals(txt_sifre_tekrar.getText())) {
+    				int islem = Query.crud(sql, veriler);
+    				if (islem > 0) {
+    					Window.inSwitch(uye_form, "login");
+    				}
+    			}else {
+    				lbl_sonuc.setText("Şifre tekrarı yanlış girildi");
+    			}
+    		}else {
+    			lbl_sonuc.setText("Cinsiyeti seçiniz!");
+    		}
+    	}else {
+    		lbl_sonuc.setText("Tüm boşlukları doldurunuz!!");
+    	}
     }
 
     @FXML

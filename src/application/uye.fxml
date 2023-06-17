@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="uye_form" prefHeight="560.0" prefWidth="380.0" style="-fx-background-color: RGB(60, 63, 81);" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UyeController">
    <children>
-      <ImageView fitHeight="118.0" fitWidth="133.0" layoutX="131.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="118.0" fitWidth="133.0" layoutX="131.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@logo.png" />
          </image>
@@ -55,9 +55,9 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_sonuc" layoutX="147.0" layoutY="40.0" text="Label" textFill="WHITE" />
       <Spinner fx:id="spin_yas" layoutX="261.0" layoutY="425.0" prefHeight="25.0" prefWidth="61.0" />
       
       <ComboBox fx:id="combo_cins" layoutX="36.0" layoutY="425.0" prefWidth="150.0" promptText="Cinsiyet seçiniz" />
+      <Label fx:id="lbl_sonuc" layoutX="120.0" layoutY="203.0" textFill="#ff3232" />
    </children>
 </AnchorPane>

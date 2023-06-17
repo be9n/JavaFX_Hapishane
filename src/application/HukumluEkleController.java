@@ -24,6 +24,9 @@ public class HukumluEkleController {
     private Label lbl_sonuc;
     
     @FXML
+    private Label lbl_sonuc_error;
+    
+    @FXML
     private URL location;
 
     @FXML
@@ -63,26 +66,34 @@ public class HukumluEkleController {
     ObservableList<Object> veriler;
     @FXML
     void btn_ekle_Click(ActionEvent event) {
-    	sql = "INSERT INTO hukumluler (huk_ad, huk_soyad, huk_ana_ad, huk_baba_ad, huk_suc, ceza_sure, cins, yas) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    	if(!txt_huk_adi.getText().equals("") && !txt_huk_soy.getText().equals("") && !txt_ana_ad.getText().equals("") && !txt_baba_ad.getText().equals("") && !txt_suc.getText().equals("")) {
+    		if(combo_cins.getValue() != null) {
     	
-    	veriler = FXCollections.observableArrayList(
-    			txt_huk_adi.getText(),
-    			txt_huk_soy.getText(),
-    			txt_ana_ad.getText(),
-    			txt_baba_ad.getText(),
-    			txt_suc.getText(),
-    			spin_sure.getValue(),
-    			FunctionsClass.giveIntCinsiyet(combo_cins.getValue()),
-    			spin_yas.getValue()
-    			);
+    			lbl_sonuc_error.setText("");
+    			
+    			sql = "INSERT INTO hukumluler (huk_ad, huk_soyad, huk_ana_ad, huk_baba_ad, huk_suc, ceza_sure, cins, yas) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    			veriler = FXCollections.observableArrayList(
+    					txt_huk_adi.getText(),
+    					txt_huk_soy.getText(),
+    					txt_ana_ad.getText(),
+    					txt_baba_ad.getText(),
+    					txt_suc.getText(),
+    					spin_sure.getValue(),
+    					FunctionsClass.giveIntCinsiyet(combo_cins.getValue()),
+    					spin_yas.getValue()
+    					);
 
-    		int islem = Query.crud(sql, veriler);
+    				int islem = Query.crud(sql, veriler);
     		
-			if (islem > 0) {
-				lbl_sonuc.setText("Hükümlü başarıyla eklendi");
-			}else {
-				lbl_sonuc.setText("Kullanici adi veya sifre hatali...");
-			}
+    				if (islem > 0) {
+    					lbl_sonuc.setText("Hükümlü başarıyla eklendi");
+    				}
+    		}else {
+    			lbl_sonuc_error.setText("Cinsiyet seçiniz!");
+    		}
+    	}else {
+    		lbl_sonuc_error.setText("Tüm boşlukları doldurunuz!!");
+    	}
     }
     
     @FXML

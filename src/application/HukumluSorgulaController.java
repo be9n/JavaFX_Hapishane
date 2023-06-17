@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -44,6 +45,9 @@ public class HukumluSorgulaController {
 
     @FXML
     private Button btn_yas;
+    
+    @FXML
+    private Label lbl_sonuc_error;
 
     @FXML
     private TextField txt_baba_ad;
@@ -67,42 +71,51 @@ public class HukumluSorgulaController {
     
     @FXML
     void btn_sorgula_Click(ActionEvent event) {
-
-    	sql = "select * from hukumluler where huk_ad=? and huk_soyad=? and huk_ana_ad=? and huk_baba_Ad=?";
+    	if(!txt_huk_ad.getText().equals("") && !txt_huk_soyad.getText().equals("") && !txt_ana_ad.getText().equals("") && !txt_baba_ad.getText().equals("")) {
+    		
     	
-		veriler1 = FXCollections.observableArrayList(
-				txt_huk_ad.getText(),
-				txt_huk_soyad.getText(),
-				txt_ana_ad.getText(),
-				txt_baba_ad.getText()
-				);
+    		sql = "select * from hukumluler where huk_ad=? and huk_soyad=? and huk_ana_ad=? and huk_baba_Ad=?";
     	
-		ResultSet getirilen = Query.select(sql, veriler1);
+			veriler1 = FXCollections.observableArrayList(
+					txt_huk_ad.getText(),
+					txt_huk_soyad.getText(),
+					txt_ana_ad.getText(),
+					txt_baba_ad.getText()
+					);
+    	
+			ResultSet getirilen = Query.select(sql, veriler1);
 		
-		try {
-			if (!getirilen.next()) {
-				disableProps(true);
-			}else {
-				btn_huk_ad.setText(getirilen.getString("huk_ad"));
-				btn_huk_soyad.setText(getirilen.getString("huk_soyad"));
-				btn_suc.setText(getirilen.getString("huk_suc"));
-				btn_sure.setText(String.valueOf(getirilen.getInt("ceza_sure"))+ " Ay");
-				btn_cins.setText(FunctionsClass.giveStringCinsiyet(getirilen.getInt("cins")));
-				btn_yas.setText(String.valueOf(getirilen.getString("yas")));
-				disableProps(false);
-				hukumluId = getirilen.getInt("id");
+			try {
+				if (!getirilen.next()) {
+					lbl_sonuc_error.setText("Hükümlü bilgileri bulunamadı!!");
+					disableProps(true);
+				}else {
+					btn_huk_ad.setText(getirilen.getString("huk_ad"));
+					btn_huk_soyad.setText(getirilen.getString("huk_soyad"));
+					btn_suc.setText(getirilen.getString("huk_suc"));
+					btn_sure.setText(String.valueOf(getirilen.getInt("ceza_sure"))+ " Ay");
+					btn_cins.setText(FunctionsClass.giveStringCinsiyet(getirilen.getInt("cins")));
+					btn_yas.setText(String.valueOf(getirilen.getString("yas")));
+					disableProps(false);
+					hukumluId = getirilen.getInt("id");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+    	}else {
+    		lbl_sonuc_error.setText("Tüm boşlukları doldurunuz!!");
+    	}
     }
 
     @FXML
     void btn_taleb_olustur_Click(ActionEvent event) {
     	TalebOlusturController.setHukumlu_id(hukumluId);
-    	Window.openWindow("TalebOlustur");
+    	Window.openWindow("TalepOlustur");
     }
 
+    
+   
+    
     public void disableProps(boolean bool) {
     	
     	btn_huk_ad.setDisable(bool);

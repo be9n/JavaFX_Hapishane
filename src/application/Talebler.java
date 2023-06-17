@@ -16,6 +16,13 @@ public class Talebler{
 		this.hukumlu_ad = hukumlu_ad;
 		this.durum = durum;
 	}
+	
+	Talebler(int id, String tarih, String hukumlu_ad, String durum) {
+		this.id = id;
+		this.tarih = tarih;
+		this.hukumlu_ad = hukumlu_ad;
+		this.durum = durum;
+	}
 
 	public int getId() {
 		return id;

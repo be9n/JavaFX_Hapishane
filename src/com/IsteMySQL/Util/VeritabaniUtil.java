@@ -8,7 +8,7 @@ public class VeritabaniUtil {
 	public static Connection Baglan() {
 		try {
 			//"jdbc:mysql://ServerIPAdresi//db_ismi", "kullanici", "sifre"
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/javaprojesi", "root", "");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/hapishane_javafx", "root", "");
 			return conn;
 		} catch (Exception e) {
 			System.out.println(e.getMessage().toString());

@@ -51,7 +51,7 @@ public class DashboardController {
 
     @FXML
     void btn_talebler_Click(ActionEvent event) {
-    	Window.inSwitch(dsh_window, "talebler");
+    	Window.inSwitch(dsh_window, "talepler");
     }
     
     @FXML
