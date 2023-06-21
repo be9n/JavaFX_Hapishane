@@ -41,21 +41,24 @@ public class TaleplerimController {
     Talebler kayit = new Talebler();
     String durum = "Bekliyor";
     ResultSet getirilen;
+    int ziyaretci_id = LoginController.getUserSession();
     
     public void DegerleriGetir(TableView<Talebler> tablo) {
     	
     	if(durum.equals("Hepsi")) {
-    		sql="select * from talepler";
-    		getirilen = Query.selectNoParamiters(sql);
+    		sql="select * from talepler where ziyaretci_id = ?";
+    		veriler = FXCollections.observableArrayList(
+        			ziyaretci_id
+        			);
     	}else {
-    		sql="select * from talepler where durum = ?";
+    		sql="select * from talepler where durum = ? and ziyaretci_id = ?";
     	
     		veriler = FXCollections.observableArrayList(
-    			durum
+    			durum,
+    			ziyaretci_id
     			);
-			getirilen = Query.select(sql, veriler);
     	}
-    	
+    	getirilen = Query.select(sql, veriler);
 		tabloDoldur(getirilen);
 	}
     
